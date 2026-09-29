@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AMAC — Association Mauritanienne d'Anatomie Clinique</title>
+<meta name="description" content="L'Association Mauritanienne d'Anatomie Clinique (AMAC) est la structure savante nationale de référence pour l'anatomie clinique en Mauritanie : recherche, enseignement et coopération scientifique.">
+<link rel="icon" href="logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Inter:wght@400;500;600&family=Noto+Naskh+Arabic:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #0b6b3a;
+    --green-dark: #07492a;
+    --green-soft: #e8f3ec;
+    --gold: #c9a227;
+    --red: #c1272d;
+    --ink: #1c2521;
+    --muted: #5b6862;
+    --line: #dfe6e2;
+    --bg: #ffffff;
+    --bg-alt: #f6f8f7;
+    --radius: 14px;
+    --max: 1120px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 17px; line-height: 1.65;
+  }
+  h1, h2, h3 { font-family: "Source Serif 4", Georgia, serif; line-height: 1.2; margin: 0 0 .5em; }
+  h2 { font-size: clamp(1.7rem, 3.2vw, 2.3rem); color: var(--green-dark); }
+  h3 { font-size: 1.2rem; }
+  p { margin: 0 0 1em; }
+  a { color: var(--green); }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+  /* Header */
+  header.top {
+    position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.96);
+    backdrop-filter: blur(6px); border-bottom: 1px solid var(--line);
+  }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+  .brand img { width: 46px; height: 46px; object-fit: contain; }
+  .brand b { font-family: "Source Serif 4", serif; font-size: 1.35rem; color: var(--green-dark); letter-spacing: .02em; }
+  nav.menu ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px; }
+  nav.menu a {
+    display: block; padding: 8px 11px; border-radius: 8px; text-decoration: none;
+    color: var(--ink); font-size: .92rem; font-weight: 500;
+  }
+  nav.menu a:hover { background: var(--green-soft); color: var(--green-dark); }
+  .burger { display: none; background: none; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; cursor: pointer; }
+  .burger span { display: block; width: 22px; height: 2px; background: var(--ink); margin: 4px 0; }
+
+  @media (max-width: 1020px) {
+    .burger { display: block; }
+    nav.menu { display: none; position: absolute; top: 68px; left: 0; right: 0; background: #fff; border-bottom: 1px solid var(--line); box-shadow: 0 10px 20px rgba(0,0,0,.06); }
+    nav.menu.open { display: block; }
+    nav.menu ul { flex-direction: column; padding: 8px 12px 16px; }
+    nav.menu a { padding: 12px; font-size: 1rem; }
+  }
+
+  /* Hero */
+  .hero {
+    background:
+      radial-gradient(circle at 85% 20%, rgba(201,162,39,.18), transparent 45%),
+      linear-gradient(135deg, var(--green-dark), var(--green));
+    color: #fff; padding: 72px 0 80px;
+  }
+  .hero .wrap { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: center; }
+  .hero .ar { font-family: "Noto Naskh Arabic", serif; font-size: 1.25rem; color: #f3e3a6; margin-bottom: 10px; direction: rtl; }
+  .hero h1 { font-size: clamp(2rem, 4.6vw, 3.2rem); color: #fff; }
+  .hero p { color: rgba(255,255,255,.9); max-width: 60ch; }
+  .hero .logo-card { background: #fff; border-radius: 50%; padding: 18px; aspect-ratio: 1; display: grid; place-items: center; box-shadow: 0 20px 50px rgba(0,0,0,.25); max-width: 360px; justify-self: center; width: 100%; }
+  .hero .logo-card img { width: 100%; height: auto; }
+  .badge { display: inline-block; margin-top: 6px; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25); font-size: .85rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+  .btn { display: inline-block; padding: 13px 22px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: .98rem; transition: transform .15s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-gold { background: var(--gold); color: #1d1a0c; }
+  .btn-ghost { border: 1.5px solid rgba(255,255,255,.7); color: #fff; }
+  .btn-green { background: var(--green); color: #fff; }
+  @media (max-width: 820px) {
+    .hero { padding: 48px 0 56px; }
+    .hero .wrap { grid-template-columns: 1fr; gap: 32px; }
+    .hero .logo-card { max-width: 240px; grid-row: 1; }
+  }
+
+  /* Sections */
+  section { padding: 76px 0; }
+  section.alt { background: var(--bg-alt); }
+  .kicker { text-transform: uppercase; letter-spacing: .12em; font-size: .78rem; font-weight: 600; color: var(--red); margin-bottom: 8px; }
+  .lead { font-size: 1.1rem; color: var(--muted); max-width: 72ch; }
+  .grid { display: grid; gap: 20px; }
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 900px) { .g3, .g4 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px) { .g2, .g3, .g4 { grid-template-columns: 1fr; } section { padding: 56px 0; } }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+  .card h3 { color: var(--green-dark); }
+  .card p:last-child { margin-bottom: 0; }
+  .num { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--green-soft); color: var(--green-dark); font-weight: 700; font-size: .9rem; margin-bottom: 12px; }
+
+  .objectives { counter-reset: obj; list-style: none; padding: 0; margin: 28px 0 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .objectives li { counter-increment: obj; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px 16px 60px; position: relative; }
+  .objectives li::before { content: counter(obj); position: absolute; left: 16px; top: 15px; width: 30px; height: 30px; border-radius: 50%; background: var(--green); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: .85rem; }
+  @media (max-width: 620px) { .objectives { grid-template-columns: 1fr; } }
+
+  .callout { margin-top: 28px; border-left: 4px solid var(--gold); background: #fffaf0; padding: 20px 24px; border-radius: 0 12px 12px 0; }
+  .callout h3 { color: #7a5f0f; }
+
+  .person { text-align: center; }
+  .avatar { width: 84px; height: 84px; border-radius: 50%; margin: 0 auto 14px; display: grid; place-items: center; background: linear-gradient(135deg, var(--green), var(--green-dark)); color: #fff; font-family: "Source Serif 4", serif; font-size: 1.7rem; }
+  .role { color: var(--red); font-weight: 600; font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; }
+  .person h3 { margin: 6px 0 4px; }
+  .person p { color: var(--muted); font-size: .93rem; }
+
+  .check { list-style: none; padding: 0; margin: 0; }
+  .check li { padding-left: 30px; position: relative; margin-bottom: 10px; }
+  .check li::before { content: ""; position: absolute; left: 0; top: 6px; width: 18px; height: 18px; border-radius: 50%; background: var(--green-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3 3 7-7' fill='none' stroke='%230b6b3a' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat; }
+
+  .tag { display: inline-block; font-size: .75rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--green-soft); color: var(--green-dark); margin-bottom: 10px; }
+  .empty { border: 1.5px dashed var(--line); border-radius: var(--radius); padding: 22px; color: var(--muted); text-align: center; background: #fff; margin-top: 24px; }
+
+  .doc { display: flex; gap: 14px; align-items: flex-start; }
+  .doc .ico { flex: none; width: 42px; height: 50px; border-radius: 6px; background: var(--red); color: #fff; font-size: .7rem; font-weight: 700; display: grid; place-items: end center; padding-bottom: 6px; }
+  .doc h3 { font-size: 1.05rem; margin-bottom: 4px; }
+  .doc p { font-size: .9rem; color: var(--muted); margin: 0; }
+
+  .contact-box { background: linear-gradient(135deg, var(--green-dark), var(--green)); color: #fff; border-radius: 20px; padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+  .contact-box h2 { color: #fff; }
+  .contact-box a { color: #f3e3a6; }
+  .contact-box dl { margin: 0; }
+  .contact-box dt { font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; color: #f3e3a6; margin-top: 14px; }
+  .contact-box dd { margin: 2px 0 0; }
+  @media (max-width: 760px) { .contact-box { grid-template-columns: 1fr; padding: 28px 22px; } }
+
+  footer { background: #0c1a13; color: rgba(255,255,255,.75); padding: 36px 0; font-size: .9rem; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; align-items: center; }
+  footer img { width: 40px; height: 40px; border-radius: 50%; background: #fff; }
+  footer .f-brand { display: flex; gap: 12px; align-items: center; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#accueil"><img src="logo.jpg" alt="Logo AMAC"><b>AMAC</b></a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="menu">
+      <ul>
+        <li><a href="#mission">Mission</a></li>
+        <li><a href="#bureau">Bureau</a></li>
+        <li><a href="#adhesion">Adhésion</a></li>
+        <li><a href="#activites">Activités</a></li>
+        <li><a href="#recherche">Recherche</a></li>
+        <li><a href="#cooperation">Coopération</a></li>
+        <li><a href="#actualites">Actualités</a></li>
+        <li><a href="#documents">Documents</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- 1. Accueil -->
+  <section class="hero" id="accueil">
+    <div class="wrap">
+      <div>
+        <div class="ar">الجمعية الموريتانية للتشريح السريري</div>
+        <h1>Association Mauritanienne d'Anatomie Clinique</h1>
+        <p>L'Association Mauritanienne d'Anatomie Clinique est la structure savante nationale de référence pour l'avancement des connaissances en anatomie clinique en Mauritanie, à travers la recherche, l'enseignement et la coopération scientifique.</p>
+        <p>Reconnue officiellement par les autorités mauritaniennes, l'AMAC réunit les anatomistes, enseignants et praticiens du pays autour d'une même ambition : faire progresser l'anatomie clinique comme discipline au service de la médecine et de la chirurgie.</p>
+        <span class="badge">Récépissé définitif n° FA 010000240203202204530 du 6 décembre 2022</span>
+        <div class="actions">
+          <a class="btn btn-gold" href="#adhesion">Devenir membre</a>
+          <a class="btn btn-ghost" href="#activites">Nos activités</a>
+        </div>
+      </div>
+      <div class="logo-card"><img src="logo.jpg" alt="Logo de l'Association Mauritanienne d'Anatomie Clinique"></div>
+    </div>
+  </section>
+
+  <!-- 2. Mission -->
+  <section id="mission">
+    <div class="wrap">
+      <div class="kicker">Qui sommes-nous</div>
+      <h2>Notre mission</h2>
+      <p class="lead">L'AMAC a pour vocation de faire de l'anatomie clinique une discipline savante à part entière en Mauritanie, reconnue à la fois pour sa rigueur scientifique et son utilité directe pour la pratique médico-chirurgicale, tout en s'inscrivant dans les réseaux scientifiques régionaux et internationaux.</p>
+      <p class="lead">Notre siège se trouve au <strong>Laboratoire d'Anatomie de la FMPOS, Université de Nouakchott</strong>.</p>
+
+      <h3 style="margin-top:40px">Nos objectifs statutaires</h3>
+      <p>Conformément à notre récépissé définitif, l'association s'engage à :</p>
+      <ol class="objectives">
+        <li>S'impliquer dans la recherche scientifique par l'organisation de séminaires, conférences et congrès</li>
+        <li>Réunir, au sein d'une société savante, les anatomistes, enseignants d'anatomie et praticiens nationaux intéressés par la discipline</li>
+        <li>Intégrer l'anatomie dans la recherche médico-chirurgicale appliquée</li>
+        <li>Diffuser l'information scientifique en lien avec les travaux de recherche</li>
+        <li>Initier des rencontres nationales thématiques</li>
+        <li>Coopérer avec les associations savantes internationales pour rester en phase avec les progrès scientifiques mondiaux</li>
+        <li>Organiser des rencontres multidisciplinaires favorisant l'interaction entre l'anatomie et les autres disciplines</li>
+        <li>S'intégrer dans les réseaux régionaux et internationaux liés à la discipline</li>
+      </ol>
+
+      <div class="callout">
+        <h3>Domaine d'intervention principal</h3>
+        <p style="margin:0">Assurer à chacun un accès équitable à une éducation de qualité et promouvoir les possibilités d'apprentissage tout au long de la vie, avec un accent particulier sur la formation et l'accès à une éducation de qualité en sciences anatomiques.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Bureau -->
+  <section class="alt" id="bureau">
+    <div class="wrap">
+      <div class="kicker">Gouvernance</div>
+      <h2>Bureau exécutif</h2>
+      <p class="lead">À l'image des grandes associations savantes d'anatomie, l'AMAC est administrée par un bureau exécutif élu, garant de la mise en œuvre de ses objectifs statutaires.</p>
+      <div class="grid g3" style="margin-top:28px">
+        <div class="card person">
+          <div class="avatar">AMI</div>
+          <div class="role">Président</div>
+          <h3>Pr Ahmedou Moulaye Idriss</h3>
+          <p>Anatomiste et Chirurgien Général, Université de Nouakchott Al Aasriya (FMPOS)</p>
+        </div>
+        <div class="card person">
+          <div class="avatar">EHA</div>
+          <div class="role">Secrétaire général</div>
+          <h3>Pr Ass. El Haj Adde</h3>
+        </div>
+        <div class="card person">
+          <div class="avatar">MMD</div>
+          <div class="role">Trésorier</div>
+          <h3>Pr Mohamed El Moctar Dahi</h3>
+        </div>
+      </div>
+      <div class="card" style="margin-top:20px">
+        <h3>Couverture géographique</h3>
+        <p>L'association a une portée nationale, avec une implantation couvrant Nouakchott Nord et Nouakchott Ouest.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Adhésion -->
+  <section id="adhesion">
+    <div class="wrap">
+      <div class="kicker">Adhésion</div>
+      <h2>Devenir membre</h2>
+      <p class="lead">Rejoindre l'AMAC, c'est intégrer une communauté scientifique nationale engagée dans l'avancement de l'anatomie clinique, avec des passerelles vers les réseaux internationaux de la discipline.</p>
+
+      <h3 style="margin-top:36px">Catégories de membres</h3>
+      <div class="grid g4" style="margin-top:16px">
+        <div class="card"><div class="num">1</div><h3>Membre titulaire</h3><p>Enseignants-chercheurs, cliniciens et praticiens ayant une activité établie en anatomie ou dans un domaine connexe.</p></div>
+        <div class="card"><div class="num">2</div><h3>Membre associé</h3><p>Étudiants, internes, jeunes chercheurs en formation.</p></div>
+        <div class="card"><div class="num">3</div><h3>Membre d'honneur</h3><p>Personnalités ayant contribué de façon exceptionnelle à la discipline.</p></div>
+        <div class="card"><div class="num">4</div><h3>Membre institutionnel</h3><p>Facultés, hôpitaux ou centres de recherche souhaitant soutenir l'association.</p></div>
+      </div>
+
+      <div class="grid g2" style="margin-top:28px; align-items:start">
+        <div class="card">
+          <h3>Avantages de l'adhésion</h3>
+          <ul class="check">
+            <li>Participation aux séminaires, conférences et congrès organisés par l'association</li>
+            <li>Accès aux informations et publications scientifiques diffusées par l'AMAC</li>
+            <li>Opportunités de collaboration et de visibilité au sein du réseau national et international</li>
+            <li>Droit de vote et éligibilité aux instances de l'association</li>
+            <li>Accès privilégié aux futures rencontres multidisciplinaires et thématiques</li>
+          </ul>
+        </div>
+        <div class="card" style="background:var(--green-soft); border-color:transparent">
+          <h3>Comment adhérer ?</h3>
+          <p>Pour toute demande d'adhésion, contactez le bureau exécutif de l'association ou rendez-vous au Laboratoire d'Anatomie de la FMPOS, Université de Nouakchott.</p>
+          <a class="btn btn-green" href="#contact">Nous contacter</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Activités -->
+  <section class="alt" id="activites">
+    <div class="wrap">
+      <div class="kicker">Activités et événements</div>
+      <h2>Nos activités scientifiques</h2>
+      <p class="lead">À l'instar des grandes sociétés savantes d'anatomie qui organisent une réunion scientifique annuelle comme temps fort de leur vie associative, l'AMAC structure son calendrier autour de :</p>
+      <div class="grid g4" style="margin-top:28px">
+        <div class="card"><h3>Séminaires</h3><p>Séminaires et journées scientifiques thématiques.</p></div>
+        <div class="card"><h3>Congrès</h3><p>Conférences et congrès nationaux d'anatomie clinique.</p></div>
+        <div class="card"><h3>Ateliers</h3><p>Ateliers pratiques et formations continues.</p></div>
+        <div class="card"><h3>Rencontres</h3><p>Rencontres multidisciplinaires associant anatomie et autres spécialités médico-chirurgicales.</p></div>
+      </div>
+      <div class="empty">Le calendrier des événements passés et à venir sera publié prochainement.</div>
+    </div>
+  </section>
+
+  <!-- 6. Recherche -->
+  <section id="recherche">
+    <div class="wrap">
+      <div class="kicker">Recherche et publications</div>
+      <h2>Diffusion du savoir scientifique</h2>
+      <div class="grid g2" style="margin-top:12px; align-items:start">
+        <div>
+          <p class="lead">Conformément à sa mission, l'AMAC encourage et diffuse les travaux de recherche de ses membres en anatomie clinique — qu'il s'agisse de recherche fondamentale, appliquée à la pratique chirurgicale, ou liée à l'enseignement de l'anatomie.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Projet</span>
+          <h3>Vers un bulletin de l'AMAC</h3>
+          <p>De nombreuses associations d'anatomie clinique s'appuient sur une revue scientifique officielle pour diffuser leurs travaux. L'AMAC envisage, à terme, un bulletin ou une newsletter scientifique répertoriant les contributions de ses membres.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Coopération -->
+  <section class="alt" id="cooperation">
+    <div class="wrap">
+      <div class="kicker">Coopération et réseaux internationaux</div>
+      <h2>Un rayonnement international</h2>
+      <p class="lead">Conformément à son objectif statutaire de coopération avec les associations savantes internationales, l'AMAC s'inscrit dans une dynamique d'ouverture vers les réseaux régionaux et mondiaux de l'anatomie clinique.</p>
+      <p class="lead">L'anatomie clinique est portée, à travers le monde, par plusieurs sociétés savantes nationales fédérées au sein d'organisations internationales telles que la Fédération Internationale des Associations d'Anatomistes (IFAA). L'AMAC ambitionne de développer des liens avec ces réseaux afin de rester en phase avec les avancées scientifiques mondiales et de faire connaître la recherche anatomique mauritanienne à l'international.</p>
+    </div>
+  </section>
+
+  <!-- 8. Actualités -->
+  <section id="actualites">
+    <div class="wrap">
+      <div class="kicker">Actualités</div>
+      <h2>Dernières nouvelles</h2>
+      <div class="grid g4" style="margin-top:20px">
+        <div class="card"><span class="tag">Événements</span><p>Annonces d'événements à venir</p></div>
+        <div class="card"><span class="tag">Comptes-rendus</span><p>Comptes-rendus de conférences et séminaires</p></div>
+        <div class="card"><span class="tag">Vie associative</span><p>Nouvelles adhésions, nominations, distinctions</p></div>
+        <div class="card"><span class="tag">Science</span><p>Actualités scientifiques en anatomie clinique</p></div>
+      </div>
+      <div class="empty">Les premières actualités seront publiées prochainement.</div>
+    </div>
+  </section>
+
+  <!-- 9. Documents -->
+  <section class="alt" id="documents">
+    <div class="wrap">
+      <div class="kicker">Transparence</div>
+      <h2>Documents officiels</h2>
+      <p class="lead">Dans un souci de transparence, à l'image des associations savantes internationales qui publient leurs statuts et règlements en ligne.</p>
+      <div class="grid g2" style="margin-top:24px">
+        <div class="card doc"><div class="ico">PDF</div><div><h3>Récépissé définitif de reconnaissance</h3><p>N° FA 010000240203202204530 du 6 décembre 2022</p></div></div>
+        <div class="card doc"><div class="ico">PDF</div><div><h3>Statuts de l'association</h3><p>Bientôt disponible</p></div></div>
+        <div class="card doc"><div class="ico">PDF</div><div><h3>Règlement intérieur</h3><p>Bientôt disponible</p></div></div>
+        <div class="card doc"><div class="ico">PDF</div><div><h3>Comptes-rendus des assemblées générales</h3><p>Bientôt disponible</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Contact -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-box">
+        <div>
+          <h2>Contact</h2>
+          <p>Pour toute question, demande d'adhésion ou proposition de collaboration, n'hésitez pas à contacter l'association.</p>
+          <dl>
+            <dt>Siège</dt>
+            <dd>Laboratoire d'Anatomie, FMPOS<br>Université de Nouakchott, Mauritanie</dd>
+          </dl>
+        </div>
+        <div>
+          <dl>
+            <dt>Président</dt><dd>Pr Ahmedou Moulaye Idriss</dd>
+            <dt>Secrétaire général</dt><dd>Pr Ass. El Haj Adde</dd>
+            <dt>Trésorier</dt><dd>Pr Mohamed El Moctar Dahi</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-brand"><img src="logo.jpg" alt=""><div><strong style="color:#fff">AMAC</strong><br>Association Mauritanienne d'Anatomie Clinique</div></div>
+    <div>© <span id="y"></span> AMAC — Nouakchott, Mauritanie</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+  const burger = document.querySelector('.burger');
+  const menu = document.querySelector('nav.menu');
+  burger.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+  }));
+</script>
+</body>
+</html>
